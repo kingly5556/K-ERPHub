@@ -1,0 +1,8 @@
+[
+  {
+    "username": "admin",
+    "passwordHash": "$2b$10$KKBkWDoylX/5Oc84qss8lOOIP1mEmKhZ98aQ1O16agqdVmiWGP7We",
+    "roles": ["admin", "Admin", "Manager", "Purchasing", "Warehouse Staff"],
+    "allowedModules": ["demo", "stock"]
+  }
+]

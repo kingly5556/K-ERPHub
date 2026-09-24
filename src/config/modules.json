@@ -1,0 +1,14 @@
+[
+  {
+    "key": "demo",
+    "name": "Demo Echo Service",
+    "icon": "🧪",
+    "targetUrl": "https://httpbin.org"
+  },
+  {
+    "key": "stock",
+    "name": "Stock & Purchase Orders",
+    "icon": "📦",
+    "targetUrl": "http://localhost:4001"
+  }
+]
