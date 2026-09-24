@@ -1,6 +1,6 @@
 # คู่มือระบบ Stock & Purchase Order
 
-โมดูลนี้แยกเป็น 2 repo คือ `Stock-Purchase-Backend` และ `Stock-Purchase-Frontend` (วางเป็นโฟลเดอร์พี่น้องกับ `K-ERPHub` ใน `K-ERP/`) เป็นระบบจัดการสต็อกสินค้ากับคำสั่งซื้อ (Purchase Order) ที่เสียบเข้ากับ ERPHUB (ระบบ auth hub หลักของ K-ERP) เอกสารนี้อธิบายว่า **มีอะไรอยู่บ้าง, ทำไมถึงออกแบบแบบนี้, และใช้งานยังไง** — ไม่ใช่ reference โค้ดแบบละเอียด (ดูโค้ดจริงที่ path ด้านล่างสำหรับรายละเอียด)
+โมดูลนี้แยกเป็น 2 repo คือ `Stock-Purchase-Backend` และ `Stock-Purchase-Frontend` (วางเป็นโฟลเดอร์พี่น้องกันใน `K-ERP/Stock and purchase/`) เป็นระบบจัดการสต็อกสินค้ากับคำสั่งซื้อ (Purchase Order) ที่เสียบเข้ากับ ERPHUB (ระบบ auth hub หลักของ K-ERP) เอกสารนี้อธิบายว่า **มีอะไรอยู่บ้าง, ทำไมถึงออกแบบแบบนี้, และใช้งานยังไง** — ไม่ใช่ reference โค้ดแบบละเอียด (ดูโค้ดจริงที่ path ด้านล่างสำหรับรายละเอียด)
 
 ---
 
@@ -35,13 +35,14 @@ K-ERP คือ **ERPHUB** — ระบบ auth เดียวที่รว�
 ```
 K-ERP/
 ├── K-ERPHub/                     ← ERPHUB (auth hub + proxy) — repo นี้
-├── Stock-Purchase-Backend/       ← REST API (Express + Prisma + PostgreSQL)
-│   ├── AGENTS.md                 ← สเปกและกฎธุรกิจทั้งหมดของโมดูลนี้ (ต้นทางความจริง)
-│   ├── prisma/schema.prisma      ← โครงสร้างฐานข้อมูลทั้งหมด
-│   ├── prisma/seed.ts            ← ข้อมูลตัวอย่างสำหรับ demo
-│   └── src/modules/              ← โค้ดแยกตามโดเมนธุรกิจ (ดูข้อ 5)
-└── Stock-Purchase-Frontend/      ← หน้าเว็บ (React + TypeScript + Vite)
-    └── src/pages/                ← หน้าจอต่างๆ (ดูข้อ 6)
+└── Stock and purchase/           ← โมดูลนี้ (ระบบอื่นๆ ในอนาคตจะมีโฟลเดอร์ของตัวเองแบบเดียวกัน)
+    ├── Stock-Purchase-Backend/   ← REST API (Express + Prisma + PostgreSQL)
+    │   ├── AGENTS.md             ← สเปกและกฎธุรกิจทั้งหมดของโมดูลนี้ (ต้นทางความจริง)
+    │   ├── prisma/schema.prisma  ← โครงสร้างฐานข้อมูลทั้งหมด
+    │   ├── prisma/seed.ts        ← ข้อมูลตัวอย่างสำหรับ demo
+    │   └── src/modules/          ← โค้ดแยกตามโดเมนธุรกิจ (ดูข้อ 5)
+    └── Stock-Purchase-Frontend/  ← หน้าเว็บ (React + TypeScript + Vite)
+        └── src/pages/            ← หน้าจอต่างๆ (ดูข้อ 6)
 ```
 
 ---
@@ -146,7 +147,7 @@ React SPA ธรรมดา (ไม่มี framework หนักๆ) — ser
 docker start k-erp-stock-pg
 
 # 2. Frontend build (ครั้งเดียวพอ ถ้าไม่ได้แก้โค้ด)
-cd Stock-Purchase-Frontend
+cd "Stock and purchase/Stock-Purchase-Frontend"
 npm run build
 
 # 3. Backend ของโมดูล (พอร์ต 4001)
@@ -154,7 +155,7 @@ cd ../Stock-Purchase-Backend
 npm run dev
 
 # 4. ERPHUB ตัวหลัก (พอร์ต 3000)
-cd ../K-ERPHub
+cd ../../K-ERPHub
 npm run dev
 ```
 
