@@ -138,6 +138,12 @@ React SPA ธรรมดา (ไม่มี framework หนักๆ) — ser
 
 ---
 
+## 8.1 ส่งข้อมูลให้ระบบบัญชี (Accounting integration)
+
+การรับของเข้า PO และการปรับสต็อกเขียน event ลงตาราง `outbox_messages` **ใน transaction เดียวกัน** แล้ว worker ส่งต่อให้โมดูล Accounting (`ACCOUNTING_URL` + `ACCOUNTING_SERVICE_KEY` ใน `.env`; ไม่ตั้ง = event รอใน outbox ไม่หาย) Stock ไม่เรียก Accounting ตรงๆ ใน request จึงไม่ช้าและไม่พังเมื่อบัญชีล่ม — รายละเอียดทั้งหมดอยู่ใน `ACCOUNTING_GUIDE.md` ข้อ 6 ใช้ `npm run accounting:cutover` ครั้งเดียวเพื่อลงยอดยกมาของสต็อกเดิม และ Admin ดู/retry event ที่ล้มเหลวได้ที่ `/api/outbox`
+
+---
+
 ## 9. วิธีรันระบบทั้งหมด (ย่อ)
 
 ต้องรัน 3 อย่างพร้อมกัน:
