@@ -30,7 +30,12 @@ export function LoginForm() {
         return;
       }
 
-      const next = searchParams.get("next") ?? "/erphub";
+      // Only same-origin paths: "/x" is fine, "//evil.com" or "https://..." is not.
+      const requested = searchParams.get("next");
+      const next =
+        requested && requested.startsWith("/") && !requested.startsWith("//")
+          ? requested
+          : "/erphub";
       router.push(next);
       router.refresh();
     } finally {

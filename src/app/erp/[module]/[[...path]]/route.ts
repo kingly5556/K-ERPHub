@@ -22,6 +22,10 @@ async function handleProxy(request: NextRequest, { params }: RouteParams) {
     );
   }
 
+  if (!session.payload.allowedModules.includes(erpModule.key)) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
   if (
     erpModule.roles &&
     !erpModule.roles.some((role) => session.payload.roles.includes(role))
