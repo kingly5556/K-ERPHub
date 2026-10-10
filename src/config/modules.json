@@ -10,5 +10,11 @@
     "name": "Stock & Purchase Orders",
     "icon": "📦",
     "targetUrl": "http://localhost:4001"
+  },
+  {
+    "key": "accounting",
+    "name": "Accounting / General Ledger",
+    "icon": "📒",
+    "targetUrl": "http://localhost:4002"
   }
 ]
