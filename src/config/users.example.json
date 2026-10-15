@@ -1,17 +1,54 @@
 [
   {
-    "username": "admin",
-    "passwordHash": "$2b$10$KKBkWDoylX/5Oc84qss8lOOIP1mEmKhZ98aQ1O16agqdVmiWGP7We",
+    "username": "demo.purchasing",
+    "passwordHash": "$2b$10$OfNfwaagEAd80wWnzbNNIeGyO4TZTRhujH5JA52nolVLXKql6EraO",
     "roles": [
-      "admin",
-      "Admin",
-      "Manager",
-      "Purchasing",
-      "Warehouse Staff",
+      "Purchasing"
+    ],
+    "allowedModules": [
+      "stock",
+      "accounting"
+    ]
+  },
+  {
+    "username": "demo.manager",
+    "passwordHash": "$2b$10$OfNfwaagEAd80wWnzbNNIeGyO4TZTRhujH5JA52nolVLXKql6EraO",
+    "roles": [
+      "Manager"
+    ],
+    "allowedModules": [
+      "stock",
+      "accounting"
+    ]
+  },
+  {
+    "username": "demo.warehouse",
+    "passwordHash": "$2b$10$OfNfwaagEAd80wWnzbNNIeGyO4TZTRhujH5JA52nolVLXKql6EraO",
+    "roles": [
+      "Warehouse Staff"
+    ],
+    "allowedModules": [
+      "stock"
+    ]
+  },
+  {
+    "username": "demo.accountant",
+    "passwordHash": "$2b$10$OfNfwaagEAd80wWnzbNNIeGyO4TZTRhujH5JA52nolVLXKql6EraO",
+    "roles": [
       "Accountant"
     ],
     "allowedModules": [
-      "demo",
+      "stock",
+      "accounting"
+    ]
+  },
+  {
+    "username": "demo.admin",
+    "passwordHash": "$2b$10$OfNfwaagEAd80wWnzbNNIeGyO4TZTRhujH5JA52nolVLXKql6EraO",
+    "roles": [
+      "Admin"
+    ],
+    "allowedModules": [
       "stock",
       "accounting"
     ]

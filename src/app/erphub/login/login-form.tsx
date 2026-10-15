@@ -1,8 +1,19 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { ErphubLogo } from "@/components/erphub-logo";
+
+// One-click demo accounts (see src/config/users.example.json). Shown only when
+// NEXT_PUBLIC_DEMO_PASSWORD is set, so a real deployment can turn them off.
+const DEMO_PASSWORD = process.env.NEXT_PUBLIC_DEMO_PASSWORD;
+const DEMO_ACCOUNTS = [
+  { username: "demo.purchasing", label: "Purchasing", hint: "สร้าง / ส่ง PO" },
+  { username: "demo.manager", label: "Manager", hint: "อนุมัติ PO เกิน 50,000" },
+  { username: "demo.warehouse", label: "Warehouse", hint: "รับของ / ปรับสต็อก" },
+  { username: "demo.accountant", label: "Accountant", hint: "บันทึกบัญชี / รายงาน" },
+  { username: "demo.admin", label: "Admin", hint: "ทุกอย่าง + ปิดงวด" },
+] as const;
 
 export function LoginForm() {
   const router = useRouter();
@@ -12,8 +23,12 @@ export function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  // Start waking the (free-tier) module backends while the visitor picks a role.
+  useEffect(() => {
+    fetch("/api/warmup", { method: "POST" }).catch(() => {});
+  }, []);
+
+  async function login(user: string, pass: string) {
     setError(null);
     setLoading(true);
 
@@ -21,7 +36,7 @@ export function LoginForm() {
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username: user, password: pass }),
       });
 
       if (!res.ok) {
@@ -41,6 +56,11 @@ export function LoginForm() {
     } finally {
       setLoading(false);
     }
+  }
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    void login(username, password);
   }
 
   return (
@@ -107,6 +127,32 @@ export function LoginForm() {
       >
         {loading ? "Signing in..." : "Sign in"}
       </button>
+
+      {DEMO_PASSWORD && (
+        <div className="space-y-2 border-t border-slate-200 pt-4 dark:border-slate-800">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            ลองใช้งานทันทีตาม role · ข้อมูล demo รีเซ็ตทุกคืน 03:00 · ครั้งแรกอาจรอประมาณ 1 นาที
+          </p>
+          <div className="grid grid-cols-2 gap-2">
+            {DEMO_ACCOUNTS.map((account) => (
+              <button
+                key={account.username}
+                type="button"
+                disabled={loading}
+                onClick={() => void login(account.username, DEMO_PASSWORD)}
+                className="rounded-lg border border-slate-300 px-3 py-2 text-left text-sm transition hover:border-indigo-400 hover:bg-indigo-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:hover:bg-indigo-950/40"
+              >
+                <span className="block font-medium text-slate-800 dark:text-slate-100">
+                  {account.label}
+                </span>
+                <span className="block text-xs text-slate-500 dark:text-slate-400">
+                  {account.hint}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </form>
   );
 }
