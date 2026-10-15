@@ -125,7 +125,7 @@ React SPA ธรรมดา (ไม่มี framework หนักๆ) — ser
 - รัน migration + seed กับ PostgreSQL จริง (ไม่ใช่ mock)
 - ยิง API จริงผ่าน curl: รับของบางส่วน → balance ขยับถูกต้อง, พยายามรับเกินจำนวนสั่ง → ระบบบล็อกถูกต้อง
 - เปิดเบราว์เซอร์จริง กรอกฟอร์มรับของผ่าน UI จริง → เห็นข้อมูลอัปเดตถูกต้อง
-- ล็อกอินที่ ERPHUB จริง (`admin` / `ChangeMe123!`) → คลิกเมนู → เข้าโมดูลนี้ได้โดยไม่ต้อง login ซ้ำ → พิสูจน์ว่า auth flow ทำงานจริงทั้งระบบ ไม่ใช่แค่ทฤษฎีในเอกสาร
+- ล็อกอินที่ ERPHUB จริง (ตอนนั้นใช้ `admin` / `ChangeMe123!` ปัจจุบันเปลี่ยนเป็นผู้ใช้ demo ตาม role เช่น `demo.admin` / `Demo@2026`) → คลิกเมนู → เข้าโมดูลนี้ได้โดยไม่ต้อง login ซ้ำ → พิสูจน์ว่า auth flow ทำงานจริงทั้งระบบ ไม่ใช่แค่ทฤษฎีในเอกสาร
 
 ---
 
@@ -165,6 +165,6 @@ cd ../../K-ERPHub
 npm run dev
 ```
 
-แล้วเข้า `http://localhost:3000/erphub/login` (admin / ChangeMe123!) → คลิก "Stock & Purchase Orders"
+แล้วเข้า `http://localhost:3000/erphub/login` (`demo.admin` / `Demo@2026` หรือกดปุ่ม demo ถ้าตั้ง `NEXT_PUBLIC_DEMO_PASSWORD`) → คลิก "Stock & Purchase Orders"
 
 รายละเอียดคำสั่ง/troubleshooting เต็มๆ อยู่ที่ `Stock-Purchase-Backend/README.md`

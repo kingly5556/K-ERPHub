@@ -34,11 +34,13 @@ npm install
 npm run dev
 ```
 
-On first run `src/config/users.json` (gitignored) is created automatically from `src/config/users.example.json`. Seeded demo user: username `admin`, password `ChangeMe123!`. **Replace this placeholder user store with a real identity provider before production use.**
+On first run `src/config/users.json` (gitignored) is created automatically from `src/config/users.example.json`. It seeds five demo users, one per role: `demo.purchasing`, `demo.manager`, `demo.warehouse`, `demo.accountant` and `demo.admin`, all with password `Demo@2026`. Set `NEXT_PUBLIC_DEMO_PASSWORD=Demo@2026` to show one-click demo login buttons. To change the password, run `node scripts/hash-password.mjs "<new password>"`, paste the hash into `users.example.json`, and delete your local `users.json` so it is recreated. **Replace this placeholder user store with a real identity provider before production use.**
 
 Open `http://localhost:3000` — it redirects to `http://localhost:3000/erphub` (and to `/erphub/login` if you're not signed in).
 
-A demo module (`demo`, proxied to `https://httpbin.org`) is preconfigured so you can verify the proxy end-to-end: after logging in, open the `Demo Echo Service` tile, then visit `/erp/demo/get` to see the request echoed back — including the injected `Authorization` header.
+## Deploying
+
+In production each module URL comes from an env var named `MODULE_<KEY>_URL` (for example `MODULE_STOCK_URL`, `MODULE_ACCOUNTING_URL`). It overrides the localhost URL in `modules.json`. The proxy waits up to 90 s for a sleeping free-tier backend, then shows a "waking up" page (for page loads) or returns 502/504 JSON (for API calls). `POST /api/warmup`, called by the login page, pings every module's `/health` in the background so backends start waking before the visitor opens a module. `vercel.json` pins functions to `sin1` (Singapore), next to the backends and databases.
 
 ## Adding a new ERP module
 
